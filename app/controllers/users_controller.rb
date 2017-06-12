@@ -16,7 +16,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    debugger
     @user = User.find(params[:id])
     if @user.update_attributes(secure_params)
       redirect_to users_path, :notice => "User updated."
@@ -39,8 +38,9 @@ class UsersController < ApplicationController
     end
   end
 
+
   def secure_params
-    params.require(:user).permit(:role, :avatar)
+    params.require(:user).permit(:role, :avatar, :remove_avatar)
   end
 
 end

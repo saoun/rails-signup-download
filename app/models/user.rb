@@ -3,6 +3,9 @@ class User < ApplicationRecord
   after_initialize :set_default_role, :if => :new_record?
   after_create :sign_up_for_mailing_list
 
+  attr_accessor :remove_avatar
+
+
   has_attached_file :avatar, styles: {
     thumb: '100x100>',
     square: '200x200#',
@@ -10,7 +13,6 @@ class User < ApplicationRecord
   }
 
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
-
 
   def set_default_role
     self.role ||= :user
@@ -34,6 +36,10 @@ class User < ApplicationRecord
         status: 'subscribed'
     })
     Rails.logger.info("Subscribed #{self.email} to MailChimp") if result
+  end
+
+  def remove_avatar
+    self.avatar = nil
   end
 
 end
