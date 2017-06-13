@@ -39,7 +39,6 @@ class User < ApplicationRecord
   end
 
   def remove_avatar
-    self.avatar = nil
   end
 
 end
